@@ -8,6 +8,7 @@ from discord.utils import get
 
 import data
 import rally_api
+import validation
 import errors
 
 from utils import pretty_print, send_to_dm
@@ -20,7 +21,6 @@ class RallyCommands(commands.Cog):
     async def cog_after_invoke(self, ctx):
         await pretty_print( ctx, "Command completed successfully!",  title= "Success", color=SUCCESS_COLOR)
 
-    @send_to_dm
     @errors.standard_error_handler
     async def cog_command_error(self, ctx, error):
 
@@ -32,3 +32,17 @@ class RallyCommands(commands.Cog):
     @commands.dm_only()
     async def set_rally_id(self, ctx, rally_id):
         data.add_discord_rally_mapping(ctx.author.id, rally_id)
+
+    @commands.command(name="balance", help="View your balance")
+    @validation.is_wallet_verified()
+    async def balance(self, ctx):
+        rally_id = data.get_rally_id(ctx.message.author.id)
+        balances = rally_api.get_balances(rally_id)
+        await ctx.send(
+            json.dumps(
+            [
+                json.dumps(balance)
+                for balance in balances
+            ]
+        )
+    )
