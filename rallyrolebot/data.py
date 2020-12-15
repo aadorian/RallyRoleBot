@@ -23,6 +23,22 @@ from utils.ext import connect_db
     #################### rally_connections ######################
     discordId
     rallyId
+    
+    #################### channel_prefixes ######################
+    guildId
+    prefix
+    
+    #################### default_coin ######################
+    guildId
+    coin
+    
+    #################### purchasing ######################
+    guildId
+    message
+    
+    #################### donating ######################
+    guildId
+    message
 """
 
 
@@ -87,6 +103,7 @@ def get_channel_mappings(db, guild_id, coin=None, required_balance=None, channel
         ]
     return filtered_mappings
 
+
 @connect_db
 def remove_role_mapping(db, guild_id, coin, required_balance, role):
 
@@ -107,10 +124,12 @@ def remove_channel_mapping(db, guild_id, coin, required_balance, channel):
         channel=channel,
     )
 
+
 @connect_db
 def add_discord_rally_mapping(db, discord_id, rally_id):
     table = db[RALLY_CONNECTIONS_TABLE]
     table.upsert({DISCORD_ID_KEY: discord_id, RALLY_ID_KEY: rally_id}, [DISCORD_ID_KEY])
+
 
 @connect_db
 def get_rally_id(db, discord_id):
@@ -119,4 +138,84 @@ def get_rally_id(db, discord_id):
     row = table.find_one(discordId=discord_id)
     if row is not None:
         return row[RALLY_ID_KEY]
+    return None
+
+
+@connect_db
+def get_all_users(db):
+
+    table = db[RALLY_CONNECTIONS_TABLE]
+    all_users = table.all()
+    return all_users
+
+
+@connect_db
+def remove_discord_rally_mapping(db, discord_id, rally_id):
+
+    table = db[RALLY_CONNECTIONS_TABLE]
+    table.delete(
+        discordId=discord_id,
+        guildId=guild_id,
+    )
+
+
+@connect_db
+def add_prefix_mapping(db, guild_id, prefix):
+    table = db[CHANNEL_PREFIXES_TABLE]
+    table.upsert({GUILD_ID_KEY: guild_id, PREFIX_KEY: prefix}, [GUILD_ID_KEY])
+
+
+@connect_db
+def get_prefix(db, guild_id):
+
+    table = db[CHANNEL_PREFIXES_TABLE]
+    row = table.find_one(guildId=guild_id)
+    if row is not None:
+        return row[PREFIX_KEY]
+    return None
+
+
+@connect_db
+def add_default_coin(db, guild_id, coin=None):
+    table = db[DEFAULT_COIN_TABLE]
+    table.upsert({GUILD_ID_KEY: guild_id, COIN_KIND_KEY: coin}, [GUILD_ID_KEY])
+
+
+@connect_db
+def get_default_coin(db, guild_id):
+
+    table = db[DEFAULT_COIN_TABLE]
+    row = table.find_one(guildId=guild_id)
+    if row is not None:
+        return row[GUILD_ID_KEY]
+    return None
+
+
+@connect_db
+def add_purchase_message(db, guild_id, message):
+    table = db[PURCHASING_TABLE]
+    table.upsert({GUILD_ID_KEY: guild_id, MESSAGE_KEY: message}, [GUILD_ID_KEY])
+
+
+@connect_db
+def get_purchase_message(db, guild_id):
+    table = db[PURCHASING_TABLE]
+    row = table.find_one(guildId=guild_id)
+    if row is not None:
+        return row[MESSAGE_KEY]
+    return None
+
+
+@connect_db
+def add_donate_message(db, guild_id, message):
+    table = db[DONATING_TABLE]
+    table.upsert({GUILD_ID_KEY: guild_id, MESSAGE_KEY: message}, [GUILD_ID_KEY])
+
+
+@connect_db
+def get_donate_message(db, guild_id):
+    table = db[DONATING_TABLE]
+    row = table.find_one(guildId=guild_id)
+    if row is not None:
+        return row[MESSAGE_KEY]
     return None
