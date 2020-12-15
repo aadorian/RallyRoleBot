@@ -23,6 +23,10 @@ from utils.ext import connect_db
     #################### rally_connections ######################
     discordId
     rallyId
+
+    #################### server_config ####################
+    purchaseMessage
+    donateMessage
 """
 
 
@@ -119,4 +123,44 @@ def get_rally_id(db, discord_id):
     row = table.find_one(discordId=discord_id)
     if row is not None:
         return row[RALLY_ID_KEY]
+    return None
+
+@connect_db
+def set_purchase_message(db, guild_id, message):
+    table = db[CONFIG_TABLE]
+    table.upsert(
+        {
+            GUILD_ID_KEY: guild_id,
+            PURCHASE_MESSAGE_KEY: message,
+            CONFIG_NAME_KEY: PURCHASE_MESSAGE_KEY,
+        },
+        [GUILD_ID_KEY, CONFIG_NAME_KEY],
+    )
+
+@connect_db
+def get_purchase_message(db, guild_id):
+    table = db[CONFIG_TABLE]
+    row = table.find_one(guildId=guild_id, configName=PURCHASE_MESSAGE_KEY)
+    if row is not None:
+        return row[PURCHASE_MESSAGE_KEY]
+    return None
+
+@connect_db
+def set_donate_message(db, guild_id, message):
+    table = db[CONFIG_TABLE]
+    table.upsert(
+        {
+            GUILD_ID_KEY: guild_id,
+            DONATE_MESSAGE_KEY: message,
+            CONFIG_NAME_KEY: DONATE_MESSAGE_KEY,
+        },
+        [GUILD_ID_KEY, CONFIG_NAME_KEY],
+    )
+
+@connect_db
+def get_donate_message(db, guild_id):
+    table = db[CONFIG_TABLE]
+    row = table.find_one(guildId=guild_id, configName=DONATE_MESSAGE_KEY)
+    if row is not None:
+        return row[DONATE_MESSAGE_KEY]
     return None
