@@ -187,7 +187,7 @@ def get_default_coin(db, guild_id):
     table = db[DEFAULT_COIN_TABLE]
     row = table.find_one(guildId=guild_id)
     if row is not None:
-        return row[GUILD_ID_KEY]
+        return row[COIN_KIND_KEY]
     return None
 
 
