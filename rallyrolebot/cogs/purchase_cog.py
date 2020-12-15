@@ -49,16 +49,16 @@ class PurchaseCommands(commands.Cog):
         help=" <message> Message displayed when user types the purchase command",
     )
     @validation.owner_or_permissions(administrator=True)
-    async def set_purchase_message(self, ctx, message):
-        data.add_purchase_message(ctx.guild.id, message)
+    async def set_purchase_message(self, ctx, *args):
+        data.add_purchase_message(ctx.guild.id, " ".join(args[:]))
 
     @commands.command(
-        name="set_donating_message",
+        name="set_donate_message",
         help=" <message> Message displayed when user types the donate command",
     )
     @validation.owner_or_permissions(administrator=True)
-    async def set_donate_message(self, ctx, message):
-        data.add_donate_message(ctx.guild.id, message)
+    async def set_donate_message(self, ctx, *args):
+        data.add_donate_message(ctx.guild.id, " ".join(args[:]))
 
     @commands.command(
         name="donate",
