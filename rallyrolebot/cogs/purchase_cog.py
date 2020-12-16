@@ -78,7 +78,19 @@ class PurchaseCommands(commands.Cog):
         rally_id = data.get_rally_id(ctx.message.author.id)
         if rally_id:
             balances = rally_api.get_balances(rally_id)
-            await ctx.send(balances)
+            embed = discord.Embed(
+                title="Flex",
+                description=f"{ctx.message.author.mention} is flexing",
+                color=0x00FF00,
+            )
+            embed.set_thumbnail(url=ctx.message.author.avatar_url)
+            for balance in balances:
+                embed.add_field(
+                    name=f"{balance['coinKind']}:",
+                    value=f"{balance['coinBalance']} estimated {balance['estimatedInUsd']} USD",
+                    inline=True,
+                )
+            await ctx.send(content=None, embed=embed)
         else:
             await ctx.send(
                 f"{ctx.message.author.mention} hasn't verified yet. Type help in DM."
