@@ -81,7 +81,7 @@ class PurchaseCommands(commands.Cog):
             embed = discord.Embed(
                 title="Flex",
                 description=f"{ctx.message.author.mention} is flexing",
-                color=0x00FF00,
+                color=WARNING_COLOR,
             )
             embed.set_thumbnail(url=ctx.message.author.avatar_url)
             for balance in balances:

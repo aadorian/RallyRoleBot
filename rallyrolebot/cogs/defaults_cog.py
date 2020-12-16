@@ -59,7 +59,7 @@ class DefaultsCommands(commands.Cog):
         for member in ctx.guild.members:
             if role in member.roles:
                 embed = discord.Embed(
-                    title="Profile", description="User with role", color=0x00FF00
+                    title="Profile", description="User with role", color=GREEN_COLOR
                 )
                 embed.set_thumbnail(url=member.avatar_url)
                 embed.add_field(name="Username:", value=f"{member}", inline=True)
@@ -75,7 +75,7 @@ class DefaultsCommands(commands.Cog):
         for user in registered_users:
             member = await ctx.guild.fetch_member(user[DISCORD_ID_KEY])
             embed = discord.Embed(
-                title="Profile", description="Registered users", color=0x00FF00
+                title="Profile", description="Registered users", color=GREEN_COLOR
             )
             embed.set_thumbnail(url=member.avatar_url)
             embed.add_field(name="Username:", value=f"{member}", inline=True)
