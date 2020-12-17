@@ -16,20 +16,21 @@ from cogs import update_cog
 from utils import pretty_print
 from constants import *
 
+
 class ChannelCommands(commands.Cog):
 
     """
-        Cog for processing commands from a specifc channel.
-        Deals with removing, adding, and viewing mappings from Creator Coin to a channel.
+    Cog for processing commands from a specifc channel.
+    Deals with removing, adding, and viewing mappings from Creator Coin to a channel.
     """
 
     def __init__(self, bot):
         self.bot = bot
 
-
     async def cog_after_invoke(self, ctx):
-        await pretty_print( ctx, "Command completed successfully!",  title= "Success", color=SUCCESS_COLOR)
-
+        await pretty_print(
+            ctx, "Command completed successfully!", title="Success", color=SUCCESS_COLOR
+        )
 
     @errors.standard_error_handler
     async def cog_command_error(self, ctx, error):
@@ -44,10 +45,11 @@ class ChannelCommands(commands.Cog):
           error (CommandError) – The error that happened.
 
         """
-        
-        print( "Ignoring exception in command {}:".format(ctx.command), file=sys.stderr)
-        traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
 
+        print("Ignoring exception in command {}:".format(ctx.command), file=sys.stderr)
+        traceback.print_exception(
+            type(error), error, error.__traceback__, file=sys.stderr
+        )
 
     @commands.command(
         name="set_channel_mapping",
@@ -56,11 +58,12 @@ class ChannelCommands(commands.Cog):
     )
     @validation.owner_or_permissions(administrator=True)
     async def set_coin_for_channel(
-            self, ctx, coin_name, coin_amount: int, channel : discord.TextChannel
+        self, ctx, coin_name, coin_amount: int, channel: discord.TextChannel
     ):
-        data.add_channel_coin_mapping( ctx.guild.id, coin_name, coin_amount, channel.name)
+        data.add_channel_coin_mapping(
+            ctx.guild.id, coin_name, coin_amount, channel.name
+        )
         await update_cog.force_update(self.bot, ctx)
-
 
     @commands.command(
         name="one_time_channel_mapping",
@@ -68,7 +71,9 @@ class ChannelCommands(commands.Cog):
         + " Grant/deny access to a channel instantly.",
     )
     @validation.owner_or_permissions(administrator=True)
-    async def one_time_channel_mapping( self, ctx, coin_name, coin_amount: int, channel : discord.TextChannel):
+    async def one_time_channel_mapping(
+        self, ctx, coin_name, coin_amount: int, channel: discord.TextChannel
+    ):
 
         for member in ctx.guild.members:
             rally_id = data.get_rally_id(member.id)
@@ -93,10 +98,9 @@ class ChannelCommands(commands.Cog):
     )
     @validation.owner_or_permissions(administrator=True)
     async def unset_coin_for_channel(
-            self, ctx, coin_name, coin_amount: int, channel : discord.TextChannel
+        self, ctx, coin_name, coin_amount: int, channel: discord.TextChannel
     ):
         data.remove_channel_mapping(ctx.guild.id, coin_name, coin_amount, channel.name)
-
 
     @commands.command(name="get_channel_mappings", help="Get channel mappings")
     @validation.owner_or_permissions(administrator=True)

@@ -1,5 +1,6 @@
 from discord import Color
-# TODO: Place holder for now - can use __init__.py once dependencies such as 
+
+# TODO: Place holder for now - can use __init__.py once dependencies such as
 # data.ROLE_MAPPINGS_TABLE and rally_api.BASE_URL have been removed
 
 """
@@ -36,6 +37,6 @@ UPDATE_WAIT_TIME = 600
     Miscellaneous constants
 """
 
-ERROR_COLOR =  Color(0xFF0000)
+ERROR_COLOR = Color(0xFF0000)
 SUCCESS_COLOR = Color(0x0000FF)
 WARNING_COLOR = Color(0xFFFF00)

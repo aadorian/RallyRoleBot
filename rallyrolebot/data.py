@@ -87,6 +87,7 @@ def get_channel_mappings(db, guild_id, coin=None, required_balance=None, channel
         ]
     return filtered_mappings
 
+
 @connect_db
 def remove_role_mapping(db, guild_id, coin, required_balance, role):
 
@@ -107,10 +108,12 @@ def remove_channel_mapping(db, guild_id, coin, required_balance, channel):
         channel=channel,
     )
 
+
 @connect_db
 def add_discord_rally_mapping(db, discord_id, rally_id):
     table = db[RALLY_CONNECTIONS_TABLE]
     table.upsert({DISCORD_ID_KEY: discord_id, RALLY_ID_KEY: rally_id}, [DISCORD_ID_KEY])
+
 
 @connect_db
 def get_rally_id(db, discord_id):
