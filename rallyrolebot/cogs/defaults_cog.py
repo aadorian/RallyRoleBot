@@ -1,6 +1,7 @@
 import json
 import sys
 import traceback
+import asyncio
 
 import discord
 from discord.ext import commands, tasks
@@ -40,7 +41,31 @@ class DefaultsCommands(commands.Cog):
     )
     @validation.owner_or_permissions(administrator=True)
     async def set_default_coin(self, ctx, coin_name):
-        data.add_default_coin(ctx.guild.id, coin_name)
+        await pretty_print(
+            ctx,
+            f"Are you sure you want to set {coin_name} as default coin?",
+            caption="Give 👍 reaction to confirm",
+            title="Warning",
+            color=WARNING_COLOR,
+        )
+
+        def check(reaction, user):
+            return user == ctx.message.author and str(reaction.emoji) == "👍"
+
+        try:
+            await self.bot.wait_for("reaction_add", timeout=30.0, check=check)
+        except asyncio.TimeoutError:
+            await pretty_print(
+                ctx, "Set default coin timed out 👎", title="Timeout", color=ERROR_COLOR
+            )
+        else:
+            data.add_default_coin(ctx.guild.id, coin_name)
+            await pretty_print(
+                ctx,
+                f"{coin_name} is now the default coin 👍",
+                title="Set",
+                color=GREEN_COLOR,
+            )
 
     @commands.command(
         name="change_prefix",
