@@ -81,14 +81,16 @@ class DefaultsCommands(commands.Cog):
     )
     @validation.owner_or_permissions(administrator=True)
     async def role_call(self, ctx, role: discord.Role):
+        usersStr = ""
         for member in ctx.guild.members:
             if role in member.roles:
-                embed = discord.Embed(
-                    title="Profile", description="User with role", color=GREEN_COLOR
-                )
-                embed.set_thumbnail(url=member.avatar_url)
-                embed.add_field(name="Username:", value=f"{member}", inline=True)
-                await ctx.send(content=None, embed=embed)
+                usersStr += f"{member}\n"
+        await pretty_print(
+            ctx,
+            usersStr,
+            title=f"Users with {role} role",
+            color=GREEN_COLOR,
+        )
 
     @commands.command(
         name="list_all_users",
@@ -96,16 +98,14 @@ class DefaultsCommands(commands.Cog):
     )
     @validation.owner_or_permissions(administrator=True)
     async def list_all_users(self, ctx):
+        usersStr = ""
         registered_users = data.get_all_users()
         for user in registered_users:
             member = await ctx.guild.fetch_member(user[DISCORD_ID_KEY])
-            embed = discord.Embed(
-                title="Profile", description="Registered users", color=GREEN_COLOR
-            )
-            embed.set_thumbnail(url=member.avatar_url)
-            embed.add_field(name="Username:", value=f"{member}", inline=True)
-            embed.add_field(name="RallyID:", value=f"{user[RALLY_ID_KEY]}", inline=True)
-            embed.add_field(
-                name="DiscordID:", value=f"{user[DISCORD_ID_KEY]}", inline=True
-            )
-            await ctx.send(content=None, embed=embed)
+            usersStr += f"{member}\nRallyId: {user[RALLY_ID_KEY]}\nDiscordId: {user[DISCORD_ID_KEY]}\n\n"
+        await pretty_print(
+            ctx,
+            usersStr,
+            title=f"All registered users",
+            color=GREEN_COLOR,
+        )
