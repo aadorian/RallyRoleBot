@@ -112,8 +112,8 @@ class ChannelCommands(commands.Cog):
 
     @commands.command(name="set_purchase_message", help="Change the $purchase message")
     @validation.owner_or_permissions(administrator=True)
-    async def set_purchase_message(self, ctx, message):
-        data.set_purchase_message(ctx.guild.id, ctx.message.content.split(' ', 1)[1])
+    async def set_purchase_message(self, ctx, *, message):
+        data.set_purchase_message(ctx.guild.id, message)
 
     @commands.command(name="purchase", help="Learn how you can purchase")
     async def purchase(self, ctx):
@@ -125,8 +125,8 @@ class ChannelCommands(commands.Cog):
 
     @commands.command(name="set_donate_message", help="Change the $donate message")
     @validation.owner_or_permissions(administrator=True)
-    async def set_donate_message(self, ctx, message):
-        data.set_donate_message(ctx.guild.id, ctx.message.content.split(' ', 1)[1])
+    async def set_donate_message(self, ctx, *, message):
+        data.set_donate_message(ctx.guild.id, message)
 
     @commands.command(name="donate", help="Learn how you can donate")
     async def donate(self, ctx):
