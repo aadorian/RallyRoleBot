@@ -116,6 +116,7 @@ class ChannelCommands(commands.Cog):
         data.set_purchase_message(ctx.guild.id, message)
 
     @commands.command(name="purchase", help="Learn how you can purchase")
+    @commands.guild_only()
     async def purchase(self, ctx):
         message = data.get_purchase_message(ctx.guild.id)
         if message is not None:
@@ -129,6 +130,7 @@ class ChannelCommands(commands.Cog):
         data.set_donate_message(ctx.guild.id, message)
 
     @commands.command(name="donate", help="Learn how you can donate")
+    @commands.guild_only()
     async def donate(self, ctx):
         message = data.get_donate_message(ctx.guild.id)
         if message is not None:
