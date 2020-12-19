@@ -11,8 +11,6 @@ CHANNEL_MAPPINGS_TABLE = "channel_mappings"
 RALLY_CONNECTIONS_TABLE = "rally_connections"
 CHANNEL_PREFIXES_TABLE = "channel_prefixes"
 DEFAULT_COIN_TABLE = "default_coin"
-PURCHASING_TABLE = "purchasing"
-DONATING_TABLE = "donating"
 
 GUILD_ID_KEY = "guildId"
 COIN_KIND_KEY = "coinKind"
@@ -22,7 +20,6 @@ CHANNEL_NAME_KEY = "channel"
 DISCORD_ID_KEY = "discordId"
 RALLY_ID_KEY = "rallyId"
 PREFIX_KEY = "prefix"
-MESSAGE_KEY = "message"
 
 """
  Constants useful for  rally_api module

@@ -31,14 +31,6 @@ from utils.ext import connect_db
     #################### default_coin ######################
     guildId
     coin
-    
-    #################### purchasing ######################
-    guildId
-    message
-    
-    #################### donating ######################
-    guildId
-    message
 """
 
 
@@ -155,7 +147,7 @@ def remove_discord_rally_mapping(db, discord_id, rally_id):
     table = db[RALLY_CONNECTIONS_TABLE]
     table.delete(
         discordId=discord_id,
-        guildId=guild_id,
+        guildId=rally_id,
     )
 
 
@@ -188,34 +180,4 @@ def get_default_coin(db, guild_id):
     row = table.find_one(guildId=guild_id)
     if row is not None:
         return row[COIN_KIND_KEY]
-    return None
-
-
-@connect_db
-def add_purchase_message(db, guild_id, message):
-    table = db[PURCHASING_TABLE]
-    table.upsert({GUILD_ID_KEY: guild_id, MESSAGE_KEY: message}, [GUILD_ID_KEY])
-
-
-@connect_db
-def get_purchase_message(db, guild_id):
-    table = db[PURCHASING_TABLE]
-    row = table.find_one(guildId=guild_id)
-    if row is not None:
-        return row[MESSAGE_KEY]
-    return None
-
-
-@connect_db
-def add_donate_message(db, guild_id, message):
-    table = db[DONATING_TABLE]
-    table.upsert({GUILD_ID_KEY: guild_id, MESSAGE_KEY: message}, [GUILD_ID_KEY])
-
-
-@connect_db
-def get_donate_message(db, guild_id):
-    table = db[DONATING_TABLE]
-    row = table.find_one(guildId=guild_id)
-    if row is not None:
-        return row[MESSAGE_KEY]
     return None

@@ -25,6 +25,5 @@ if __name__ == "__main__":
     bot.add_cog(channel_cog.ChannelCommands(bot))
     bot.add_cog(rally_cog.RallyCommands(bot))
     bot.add_cog(defaults_cog.DefaultsCommands(bot))
-    bot.add_cog(purchase_cog.PurchaseCommands(bot))
     bot.add_cog(update_cog.UpdateTask(bot))
     bot.run(config.CONFIG.secret_token)
