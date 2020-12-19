@@ -38,11 +38,9 @@ class RallyCommands(commands.Cog):
     async def balance(self, ctx):
         rally_id = data.get_rally_id(ctx.message.author.id)
         balances = rally_api.get_balances(rally_id)
-        await ctx.send(
-            json.dumps(
-            [
-                json.dumps(balance)
-                for balance in balances
-            ]
-        )
-    )
+        
+        balanceStr = ""
+        for balance in balances:
+            balanceStr += f"{balance['coinKind']}: {balance['coinBalance']} (Est. USD: {balance['estimatedInUsd']})\n"
+
+        await pretty_print(ctx, balanceStr, title=f"{ctx.message.author.name}'s Balances", color=WARNING_COLOR)
