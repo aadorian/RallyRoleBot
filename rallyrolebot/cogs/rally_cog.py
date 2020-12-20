@@ -1,6 +1,7 @@
 import json
 import sys
 import traceback
+import math
 
 import discord
 from discord.ext import commands, tasks
@@ -37,18 +38,41 @@ class RallyCommands(commands.Cog):
     @commands.command(name="price", help="Get the price data of a coin")
     @validation.is_valid_coin()
     async def price(self, ctx, coin_symbol):
+        def increase_decrease_gradient_index(percentage):
+            gradient = 5
+            if isinstance(percentage, float) and percentage != 0:
+                rank = math.floor(percentage / 20)
+                if(rank >= 5):
+                    rank = 5
+                elif(rank < -5):
+                    rank = -5
+                elif rank >= 0:
+                    rank += 1
+                gradient += rank
+            return gradient
+
         price = coingecko_api.get_price_data(coin_symbol) or rally_api.get_price_data(coin_symbol)
 
-        dataTitle = ""
-        dataStr = ""
+        percentage_24h = price["price_change_percentage_24h"]
+        percentage_30d = price["price_change_percentage_30d"]
 
         if price is False:
-            dataTitle = "Error"
-            dataStr = "There was an error while fetching the coin data\nPlease try again"
+            await pretty_print(ctx, 
+                "There was an error while fetching the coin data", 
+                title="Error", 
+                color=ERROR_COLOR)
         else:
-            dataTitle = f"{coin_symbol.upper()} Price Data"
-            dataStr = f"Current Price: {price['current_price']}\n\
-                24H Price Change: {price['price_change_percentage_24h']}%\n\
-                30D Price Change: {price['price_change_percentage_30d']}%"
-        
-        await pretty_print(ctx, dataStr, title=dataTitle, color=WARNING_COLOR)
+            await pretty_print(ctx, 
+                f"Current Price: {price['current_price']}", 
+                title="Current Price", 
+                color=WHITE_COLOR)
+            await pretty_print(ctx, 
+                f"{percentage_24h}%", 
+                title="24H Price Change", 
+                color=INCREASE_DECREASE_GRADIENT_COLOR[
+                    increase_decrease_gradient_index(percentage_24h)])
+            await pretty_print(ctx, 
+                f"{percentage_30d}%", 
+                title="30D Price Change", 
+                color=INCREASE_DECREASE_GRADIENT_COLOR[
+                    increase_decrease_gradient_index(percentage_30d)])
