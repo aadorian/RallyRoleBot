@@ -1,18 +1,25 @@
 from discord.ext import commands
 from discord.ext.commands.errors import *
-from constants import  *
+from constants import *
 from utils import pretty_print
 
+
 class IllegalRole(commands.CommandError):
+    def __init__(self, message, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.message = message
+
+
+class WalletNotVerified(commands.CommandError):
     def __init__(self, message, *args, **kwargs):
         super().__init__( *args, **kwargs)
         self.message = message
 
 def standard_error_handler(error_function):
     """
-        Decorator that is prepended to a cog_command_error.
-        It transforms the error handler into one that makes helpful and specific checks
-        and returns a function that readily prints the error
+    Decorator that is prepended to a cog_command_error.
+    It transforms the error handler into one that makes helpful and specific checks
+    and returns a function that readily prints the error
     """
 
     async def wrapper(cls, ctx, error):
@@ -34,30 +41,35 @@ def standard_error_handler(error_function):
             return
 
         if isinstance(error, DisabledCommand):
-            await pretty_print(ctx,
-                    "This command is disabled!",
-                    title="Error",
-                    color=ERROR_COLOR)
+            await pretty_print(
+                ctx, "This command is disabled!", title="Error", color=ERROR_COLOR
+            )
 
         elif isinstance(error, MemberNotFound):
-            await pretty_print(ctx, 
-                    str(error) + "\nNote: this command is case-sensitive." + extra ,
-                    title="Error",
-                    color = ERROR_COLOR)
+            await pretty_print(
+                ctx,
+                str(error) + "\nNote: this command is case-sensitive." + extra,
+                title="Error",
+                color=ERROR_COLOR,
+            )
             return
 
         elif isinstance(error, RoleNotFound):
-            await pretty_print(ctx,
-                    str(error) + "\nNote: this command is case-sensitive." + extra ,
-                    title="Error",
-                    color=ERROR_COLOR)
+            await pretty_print(
+                ctx,
+                str(error) + "\nNote: this command is case-sensitive." + extra,
+                title="Error",
+                color=ERROR_COLOR,
+            )
             return
 
         elif isinstance(error, NoPrivateMessage):
-            await pretty_print(ctx,
-                    "This command cannot be run in a private message." + extra ,
-                    title="Error",
-                    color=ERROR_COLOR)
+            await pretty_print(
+                ctx,
+                "This command cannot be run in a private message." + extra,
+                title="Error",
+                color=ERROR_COLOR,
+            )
             return
 
         elif isinstance(error, PrivateMessageOnly):
@@ -66,48 +78,60 @@ def standard_error_handler(error_function):
                 extra += "\nYour message has been deleted"
             except:
                 print("Could not delete message")
-            await pretty_print(ctx,
-                    "This command should be run in a Private Message only!" + extra,
-                    title="Error", 
-                    color=ERROR_COLOR)
+            await pretty_print(
+                ctx,
+                "This command should be run in a Private Message only!" + extra,
+                title="Error",
+                color=ERROR_COLOR,
+            )
             return
 
         elif isinstance(error, MissingRole):
-            await pretty_print(ctx,
-                    str(error) + extra ,
-                    title="Error",
-                    color=ERROR_COLOR)
+            await pretty_print(
+                ctx, str(error) + extra, title="Error", color=ERROR_COLOR
+            )
             return
 
         elif isinstance(error, IllegalRole):
+            await pretty_print(
+                ctx, error.message + extra, title="Error", color=ERROR_COLOR
+            )
+            return
+
+        elif isinstance(error, CheckFailure):
+            await pretty_print(
+                ctx,
+                "Could not run command, do you have sufficient permissions in this channel?"
+                + extra,
+                title="Error",
+                color=ERROR_COLOR,
+            )
+            return
+
+        elif isinstance(error, BadArgument):
+            await ctx.send_help(ctx.command)
+            await pretty_print(
+                ctx,
+                "Could not run command, is it formatted properly?" + extra,
+                title="Error",
+                color=ERROR_COLOR,
+            )
+            return
+
+        elif isinstance(error, commands.MissingRequiredArgument):
+            await ctx.send_help(ctx.command)
+            await pretty_print(
+                ctx, "Missing required arguments", title="Error", color=ERROR_COLOR
+            )
+            return
+
+        elif isinstance(error, WalletNotVerified):
             await pretty_print(ctx,
                     error.message + extra ,
                     title="Error",
                     color=ERROR_COLOR)
             return
 
-        elif isinstance(error, CheckFailure):
-            await pretty_print(ctx,
-                 "Could not run command, do you have sufficient permissions in this channel?" + extra ,
-                  title="Error",
-                  color=ERROR_COLOR)
-            return
-
-        elif isinstance(error, BadArgument):
-            await ctx.send_help(ctx.command)
-            await pretty_print(ctx,
-                  "Could not run command, is it formatted properly?" + extra ,
-                  title="Error",
-                  color=ERROR_COLOR)
-            return
-
-        elif isinstance(error, commands.MissingRequiredArgument):
-            await ctx.send_help(ctx.command)
-            await pretty_print(ctx,
-                    "Missing required arguments",
-                    title="Error",
-                    color=ERROR_COLOR)
-            return
-
         await error_function(cls, ctx, error)
+
     return wrapper
