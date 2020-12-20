@@ -147,7 +147,7 @@ def remove_discord_rally_mapping(db, discord_id, rally_id):
     table = db[RALLY_CONNECTIONS_TABLE]
     table.delete(
         discordId=discord_id,
-        guildId=rally_id,
+        rallyId=rally_id,
     )
 
 
