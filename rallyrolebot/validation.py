@@ -3,6 +3,7 @@ from discord.utils import get
 
 from rally_api import valid_coin_symbol
 import errors
+import data
 
 
 
@@ -69,3 +70,12 @@ async def is_valid_coin(ctx, coin_name):
         await ctx.send("Coin " + coin_name + " does not seem to exist")
         return False
     return True
+
+def is_wallet_verified():
+    async def extended_check(ctx):
+        rally_id = data.get_rally_id(ctx.message.author.id)
+        if rally_id is None:
+            raise errors.WalletNotVerified(ctx.message.author.mention + " hasn’t verified their wallet yet! Type !join")
+        return True
+
+    return commands.check(extended_check)
