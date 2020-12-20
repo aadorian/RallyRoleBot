@@ -25,6 +25,7 @@ COIN_KIND_KEY = "coinKind"
 COIN_BALANCE_KEY = "coinBalance"
 
 BASE_URL = "https://api.rally.io/v1"
+COINGECKO_API_URL = "https://api.coingecko.com/api/v3"
 
 
 """

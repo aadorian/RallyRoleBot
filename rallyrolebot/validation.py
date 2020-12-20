@@ -2,6 +2,7 @@ from discord.ext import commands
 from discord.utils import get
 
 from rally_api import valid_coin_symbol
+from coingecko_api import valid_coin
 import errors
 
 
@@ -59,13 +60,31 @@ async def is_valid_channel(ctx, channel_name):
     return True
 
 
-async def is_valid_coin(ctx, coin_name):
-    """
-        Poll the rally API to determine wheter or not the coin_name exists
-        TODO: Use discord.py converters instead of is_valid_coin check
-    """
-    valid = rally_api.valid_coin_symbol(coin_name)
+async def is_valid_creator_coin(coin_symbol):
+    valid = valid_coin_symbol(coin_symbol)
     if not valid:
-        await ctx.send("Coin " + coin_name + " does not seem to exist")
         return False
     return True
+
+async def is_valid_common_coin(coin_symbol):
+    valid = valid_coin(coin_symbol)
+    if not valid:
+        return False
+    return True
+
+def is_valid_coin():
+    async def extended_check(ctx):
+        if ctx.message.content == "$help":
+            return True
+
+        content = ctx.message.content.split(' ', 1)
+        if len(content) <= 1:
+            raise errors.MissingRequiredArgument()
+
+        symbol = content[1]
+        valid = await is_valid_creator_coin(symbol) or await is_valid_common_coin(symbol)
+        if not valid:
+            raise errors.InvalidCoin("Invalid coin symbol")
+        return True
+
+    return commands.check(extended_check)
