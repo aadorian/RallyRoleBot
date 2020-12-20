@@ -6,22 +6,21 @@ import errors
 import data
 
 
-
 def owner_or_permissions(**perms):
     """
-        Decorator to check for discord.py specific paramaters before running a given cog command
-        
-        Returns
-        --------
-            True if the user is the owner of the guild or 
-            the user satisfies all keyword arguments (ex. adminstrator = True)
-            and the command is run in a server (Not a private message)
+    Decorator to check for discord.py specific paramaters before running a given cog command
 
-        Raises
-        ---------
+    Returns
+    --------
+        True if the user is the owner of the guild or
+        the user satisfies all keyword arguments (ex. adminstrator = True)
+        and the command is run in a server (Not a private message)
 
-            CheckFailure 
-            NoPrivateMessage
+    Raises
+    ---------
+
+        CheckFailure
+        NoPrivateMessage
     """
     original = commands.has_permissions(**perms).predicate
 
@@ -35,7 +34,7 @@ def owner_or_permissions(**perms):
 
 async def is_valid_role(ctx, role_name):
     """
-        TODO: Use discord.py converters instead of is_valid_role check
+    TODO: Use discord.py converters instead of is_valid_role check
     """
     if get(ctx.guild.roles, name=role_name) is None:
         await ctx.send("Role does not exist on this server. Please create it first.")
@@ -45,7 +44,7 @@ async def is_valid_role(ctx, role_name):
 
 async def is_valid_channel(ctx, channel_name):
     """
-        TODO: Use discord.py converters instead of is_valid_channel check
+    TODO: Use discord.py converters instead of is_valid_channel check
     """
     matched_channels = [
         channel for channel in ctx.guild.channels if channel.name == channel_name
@@ -62,8 +61,8 @@ async def is_valid_channel(ctx, channel_name):
 
 async def is_valid_coin(ctx, coin_name):
     """
-        Poll the rally API to determine wheter or not the coin_name exists
-        TODO: Use discord.py converters instead of is_valid_coin check
+    Poll the rally API to determine wheter or not the coin_name exists
+    TODO: Use discord.py converters instead of is_valid_coin check
     """
     valid = rally_api.valid_coin_symbol(coin_name)
     if not valid:

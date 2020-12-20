@@ -14,17 +14,18 @@ import data
 import rally_api
 import validation
 
+
 async def grant_deny_channel_to_member(channel_mapping, member, balances):
     """
-      Determine if the rally_id and balance for a channel is still valid for a particular member
-      Update status in database.
+    Determine if the rally_id and balance for a channel is still valid for a particular member
+    Update status in database.
 
-      Parameters
-      __________
+    Parameters
+    __________
 
-        channel_mapping  (list) - list of information for the channel mapped to the member
-        member (discord.Member) - The discord member to check
-        balances (list)  - The amount of coin allocated to this member per coin
+      channel_mapping  (list) - list of information for the channel mapped to the member
+      member (discord.Member) - The discord member to check
+      balances (list)  - The amount of coin allocated to this member per coin
 
     """
 
@@ -63,17 +64,18 @@ async def grant_deny_channel_to_member(channel_mapping, member, balances):
     else:
         print("Channel not found")
 
+
 async def grant_deny_role_to_member(role_mapping, member, balances):
     """
-      Determine if the rally_id and balance for a role is still valid for a particular member
-      Update status in database.
+    Determine if the rally_id and balance for a role is still valid for a particular member
+    Update status in database.
 
-      Parameters
-      __________
+    Parameters
+    __________
 
-        channel_mapping (list) - list of information for the channel mapped to the member
-        member (discord.Member) - The discord member to check
-        balances (list)  - The amount allocated to this member per coin
+      channel_mapping (list) - list of information for the channel mapped to the member
+      member (discord.Member) - The discord member to check
+      balances (list)  - The amount allocated to this member per coin
 
     """
 
@@ -96,8 +98,10 @@ async def grant_deny_role_to_member(role_mapping, member, balances):
             await member.remove_roles(role_to_assign)
             print("Removed role to member")
 
+
 async def force_update(bot, ctx):
     await bot.get_cog("UpdateTask").force_update(ctx)
+
 
 class UpdateTask(commands.Cog):
     def __init__(self, bot):
@@ -112,8 +116,10 @@ class UpdateTask(commands.Cog):
     @errors.standard_error_handler
     async def cog_command_error(self, ctx, error):
         # All other Errors not returned come here. And we can just print the default TraceBack.
-        print( "Ignoring exception in command {}:".format(ctx.command), file=sys.stderr)
-        traceback.print_exception( type(error), error, error.__traceback__, file=sys.stderr )
+        print("Ignoring exception in command {}:".format(ctx.command), file=sys.stderr)
+        traceback.print_exception(
+            type(error), error, error.__traceback__, file=sys.stderr
+        )
 
     @commands.command(name="update", help="Force an immediate update")
     @validation.owner_or_permissions(administrator=True)
