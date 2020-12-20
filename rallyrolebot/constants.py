@@ -1,5 +1,6 @@
 from discord import Color
-# TODO: Place holder for now - can use __init__.py once dependencies such as 
+
+# TODO: Place holder for now - can use __init__.py once dependencies such as
 # data.ROLE_MAPPINGS_TABLE and rally_api.BASE_URL have been removed
 
 """
@@ -8,7 +9,10 @@ from discord import Color
 ROLE_MAPPINGS_TABLE = "mappings"
 CHANNEL_MAPPINGS_TABLE = "channel_mappings"
 RALLY_CONNECTIONS_TABLE = "rally_connections"
+CHANNEL_PREFIXES_TABLE = "channel_prefixes"
+DEFAULT_COIN_TABLE = "default_coin"
 CONFIG_TABLE = "config"
+
 
 GUILD_ID_KEY = "guildId"
 COIN_KIND_KEY = "coinKind"
@@ -17,9 +21,13 @@ ROLE_NAME_KEY = "roleName"
 CHANNEL_NAME_KEY = "channel"
 DISCORD_ID_KEY = "discordId"
 RALLY_ID_KEY = "rallyId"
+
+PREFIX_KEY = "prefix"
+
 CONFIG_NAME_KEY = "configName"
 PURCHASE_MESSAGE_KEY = "purchaseMessage"
 DONATE_MESSAGE_KEY = "donateMessage"
+
 
 """
  Constants useful for  rally_api module
@@ -40,9 +48,12 @@ UPDATE_WAIT_TIME = 600
     Miscellaneous constants
 """
 
-ERROR_COLOR =  Color(0xFF0000)
+ERROR_COLOR = Color(0xFF0000)
 SUCCESS_COLOR = Color(0x0000FF)
 WARNING_COLOR = Color(0xFFFF00)
+GREEN_COLOR = Color(0x00FF00)
+
 
 DEFAULT_DONATE_MESSAGE = "You can donate to by going to - Your donation helps grow and support the community and creator - Plus, there are 10 tiers of Donation badges to earn to show off your support!"
 DEFAULT_PURCHASE_MESSAGE = "You can purchase at by using a Credit/Debit card or a number of different Crypto Currencies! Buying earns rewards, supports the community, and you can even get VIP Status! (hint: there’s a secret VIP room for users who hold over X # of ;)"
+
