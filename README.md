@@ -4,7 +4,7 @@ A bot for managing roles based on Rally.io holdings
 
 ## Adding the bot to your server
 
-Click this link to add the bot to your server [https://discord.com/api/oauth2/authorize?client_id=769334375023640578&permissions=268438560&scope=bot](https://discord.com/api/oauth2/authorize?client_id=769334375023640578&permissions=268438560&scope=bot)
+Click this link to add the bot to your server [https://rallybot.app](https://rallybot.app)
 
 Once the bot has been added to your server you need to ensure that it can access and change your roles and channels.
 
@@ -42,4 +42,8 @@ Windows: `.\venv\Scripts\Activate.ps1`
 `python rallyrolebot/main.py --secret_token <your_secret_token>`
 
 If you run into a Privileged Intents Error, your bot must have the following options enabled
-![Privileged Intents Enabled](docs/PrivilegedIntents.PNG)
+![Privileged Intents Enabled](docs/PrivilegedIntents.PNG) 
+
+If contributing to the main repository, please use the Black python package to format all code before submitting a pull request.  
+
+Please DO NOT format all documents in one pull request. Format only the specific code edited per commit. *i.e. Do NOT `black *` from the working folder or the main project directory.
