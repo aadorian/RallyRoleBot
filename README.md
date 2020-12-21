@@ -49,3 +49,5 @@ If you run into a Privileged Intents Error, your bot must have the following opt
 If contributing to the main repository, please use the Black python package to format all code before submitting a pull request.  
 
 Please DO NOT format all documents in one pull request. Format only the specific code edited per commit. *i.e. Do NOT `black *` from the working folder or the main project directory.
+
+[More info about contributing](https://github.com/CreatorCoinTools/RallyRoleBot/blob/master/CONTRIBUTING.md)
