@@ -2,6 +2,7 @@ import json
 import sys
 import traceback
 import math
+from typing import Union
 
 import discord
 from discord.ext import commands, tasks
@@ -14,6 +15,7 @@ import validation
 import errors
 
 from utils import pretty_print, send_to_dm
+from utils.converters import CreatorCoin, CommonCoin
 from constants import *
 
 
@@ -41,8 +43,7 @@ class RallyCommands(commands.Cog):
         data.add_discord_rally_mapping(ctx.author.id, rally_id)
 
     @commands.command(name="price", help="Get the price data of a coin")
-    @validation.is_valid_coin()
-    async def price(self, ctx, coin_symbol):
+    async def price(self, ctx, coin_symbol : Union[CreatorCoin, CommonCoin]):
         def increase_decrease_gradient_index(percentage):
             gradient = 5
             if isinstance(percentage, float) and percentage != 0:
