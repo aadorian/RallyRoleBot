@@ -12,18 +12,21 @@ class IllegalRole(commands.CommandError):
 
 class WalletNotVerified(commands.CommandError):
     def __init__(self, message, *args, **kwargs):
-        super().__init__( *args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.message = message
+
 
 class InvalidCoin(commands.CommandError):
     def __init__(self, message, *args, **kwargs):
-        super().__init__( *args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.message = message
+
 
 class RequestError(commands.CommandError):
     def __init__(self, message, *args, **kwargs):
-        super().__init__( *args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.message = message
+
 
 def standard_error_handler(error_function):
     """
@@ -138,7 +141,7 @@ def standard_error_handler(error_function):
         elif isinstance(error, BadUnionArgument):
             await ctx.send_help(ctx.command)
             await pretty_print(
-                ctx, 
+                ctx,
                 "Invalid argument",
                 title="Error",
                 color=ERROR_COLOR,
@@ -146,24 +149,21 @@ def standard_error_handler(error_function):
             return
 
         elif isinstance(error, WalletNotVerified):
-            await pretty_print(ctx,
-                    error.message + extra ,
-                    title="Error",
-                    color=ERROR_COLOR)
+            await pretty_print(
+                ctx, error.message + extra, title="Error", color=ERROR_COLOR
+            )
             return
 
         elif isinstance(error, InvalidCoin):
-            await pretty_print(ctx,
-                    error.message + extra ,
-                    title="Error",
-                    color=ERROR_COLOR)
+            await pretty_print(
+                ctx, error.message + extra, title="Error", color=ERROR_COLOR
+            )
             return
 
         elif isinstance(error, RequestError):
-            await pretty_print(ctx,
-                    error.message + extra ,
-                    title="Error",
-                    color=ERROR_COLOR)
+            await pretty_print(
+                ctx, error.message + extra, title="Error", color=ERROR_COLOR
+            )
             return
         await error_function(cls, ctx, error)
 

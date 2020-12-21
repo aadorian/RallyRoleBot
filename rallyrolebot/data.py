@@ -187,6 +187,7 @@ def get_default_coin(db, guild_id):
         return row[COIN_KIND_KEY]
     return None
 
+
 @connect_db
 def set_purchase_message(db, guild_id, message):
     table = db[CONFIG_TABLE]
@@ -199,6 +200,7 @@ def set_purchase_message(db, guild_id, message):
         [GUILD_ID_KEY, CONFIG_NAME_KEY],
     )
 
+
 @connect_db
 def get_purchase_message(db, guild_id):
     table = db[CONFIG_TABLE]
@@ -206,6 +208,7 @@ def get_purchase_message(db, guild_id):
     if row is not None:
         return row[PURCHASE_MESSAGE_KEY]
     return None
+
 
 @connect_db
 def set_donate_message(db, guild_id, message):
@@ -218,6 +221,7 @@ def set_donate_message(db, guild_id, message):
         },
         [GUILD_ID_KEY, CONFIG_NAME_KEY],
     )
+
 
 @connect_db
 def get_donate_message(db, guild_id):

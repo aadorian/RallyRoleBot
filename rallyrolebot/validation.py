@@ -58,13 +58,16 @@ async def is_valid_channel(ctx, channel_name):
         )
         return False
     return True
-    
-    
+
+
 def is_wallet_verified():
     async def extended_check(ctx):
         rally_id = data.get_rally_id(ctx.message.author.id)
         if rally_id is None:
-            raise errors.WalletNotVerified(ctx.message.author.mention + " hasn’t verified their wallet yet! Type !join")
+            raise errors.WalletNotVerified(
+                ctx.message.author.mention
+                + " hasn’t verified their wallet yet! Type !join"
+            )
         return True
 
     return commands.check(extended_check)

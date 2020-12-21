@@ -1,7 +1,7 @@
 from discord import Embed, Color
 
 from utils.ext import *
-from utils.color import gradient 
+from utils.color import gradient
 
 
 # TODO: make pretty_print scalable so character limit does not matter

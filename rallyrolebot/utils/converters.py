@@ -4,6 +4,7 @@ import rally_api
 import coingecko_api
 import errors
 
+
 class CommonCoin(commands.Converter):
     async def convert(self, ctx, argument):
         valid = coingecko_api.valid_coin(argument)
@@ -11,7 +12,8 @@ class CommonCoin(commands.Converter):
             raise errors.InvalidCoin("Invalid coin symbol")
 
         data = coingecko_api.get_price_data(argument)
-        return {"symbol": argument, "data" : data}
+        return {"symbol": argument, "data": data}
+
 
 class CreatorCoin(commands.Converter):
     async def convert(self, ctx, argument):
@@ -20,4 +22,4 @@ class CreatorCoin(commands.Converter):
             raise errors.InvalidCoin("Invalid coin symbol")
 
         data = rally_api.get_price_data(argument)
-        return {"symbol": argument, "data" : data}
+        return {"symbol": argument, "data": data}

@@ -4,7 +4,7 @@ from constants import *
 import math
 
 
-def mix_colors(start_color, final_color, ratio=.5):
+def mix_colors(start_color, final_color, ratio=0.5):
     """
     Given two colors, mix their values by proportions weighted by percentage.
     """

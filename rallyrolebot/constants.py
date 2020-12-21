@@ -62,4 +62,3 @@ PRICE_GRADIENT_DEPTH = 5
 
 DEFAULT_DONATE_MESSAGE = "You can donate to by going to - Your donation helps grow and support the community and creator - Plus, there are 10 tiers of Donation badges to earn to show off your support!"
 DEFAULT_PURCHASE_MESSAGE = "You can purchase at by using a Credit/Debit card or a number of different Crypto Currencies! Buying earns rewards, supports the community, and you can even get VIP Status! (hint: there’s a secret VIP room for users who hold over X # of ;)"
-
