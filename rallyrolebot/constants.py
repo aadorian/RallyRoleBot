@@ -54,20 +54,10 @@ SUCCESS_COLOR = Color(0x0000FF)
 WARNING_COLOR = Color(0xFFFF00)
 GREEN_COLOR = Color(0x00FF00)
 WHITE_COLOR = Color(0xFFFFFE)
-INCREASE_DECREASE_GRADIENT_COLOR = [
-    Color(0x9E1711), # Spartan Crimson
-    Color(0xB12E21), # Chinese Brown
-    Color(0xC34632), # International Orange
-    Color(0xD65D42), # Medium Vermilion
-    Color(0xE97452), # Burnt Sienna
-    WHITE_COLOR,
-    Color(0x95F985), # Light Green
-    Color(0x4DED30), # Neon Green
-    Color(0x26D701), # Harlequin Green
-    Color(0x00C301), # Vivid Malachite
-    Color(0x00AB08), # Islamic Green
-]
+DARK_RED_COLOR = Color(0x800000)
+DARK_GREEN_COLOR = Color(0x008000)
 
+PRICE_GRADIENT_DEPTH = 5
 
 DEFAULT_DONATE_MESSAGE = "You can donate to by going to - Your donation helps grow and support the community and creator - Plus, there are 10 tiers of Donation badges to earn to show off your support!"
 DEFAULT_PURCHASE_MESSAGE = "You can purchase at by using a Credit/Debit card or a number of different Crypto Currencies! Buying earns rewards, supports the community, and you can even get VIP Status! (hint: there’s a secret VIP room for users who hold over X # of ;)"

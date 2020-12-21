@@ -1,7 +1,6 @@
 import json
 import sys
 import traceback
-import math
 from typing import Union
 
 import discord
@@ -14,7 +13,7 @@ import coingecko_api
 import validation
 import errors
 
-from utils import pretty_print, send_to_dm
+from utils import pretty_print, send_to_dm, get_gradient_by_percentage
 from utils.converters import CreatorCoin, CommonCoin
 from constants import *
 
@@ -44,18 +43,11 @@ class RallyCommands(commands.Cog):
 
     @commands.command(name="price", help="Get the price data of a coin")
     async def price(self, ctx, coin_symbol : Union[CreatorCoin, CommonCoin]):
-        def increase_decrease_gradient_index(percentage):
-            gradient = 5
-            if isinstance(percentage, float) and percentage != 0:
-                rank = math.floor(percentage / 20)
-                if(rank >= 5):
-                    rank = 5
-                elif(rank < -5):
-                    rank = -5
-                elif rank >= 0:
-                    rank += 1
-                gradient += rank
-            return gradient
+        def get_gradient_color(percentage):
+            if percentage < 0:
+                return get_gradient_by_percentage(str(WHITE_COLOR), str(DARK_RED_COLOR), PRICE_GRADIENT_DEPTH, abs(percentage))
+            else:
+                return get_gradient_by_percentage(str(WHITE_COLOR), str(DARK_GREEN_COLOR), PRICE_GRADIENT_DEPTH, percentage)
 
         price = coingecko_api.get_price_data(coin_symbol) or rally_api.get_price_data(coin_symbol)
 
@@ -72,13 +64,11 @@ class RallyCommands(commands.Cog):
             await pretty_print(ctx, 
                 f"{percentage_24h}%", 
                 title="24H Price Change", 
-                color=INCREASE_DECREASE_GRADIENT_COLOR[
-                    increase_decrease_gradient_index(percentage_24h)])
+                color=get_gradient_color(percentage_24h))
             await pretty_print(ctx, 
                 f"{percentage_30d}%", 
                 title="30D Price Change", 
-                color=INCREASE_DECREASE_GRADIENT_COLOR[
-                    increase_decrease_gradient_index(percentage_30d)])
+                color=get_gradient_color(percentage_30d))
 
     @commands.command(name="unset_rally_id", help="Unset your rally id")
     @commands.dm_only()
