@@ -20,10 +20,6 @@ class InvalidCoin(commands.CommandError):
         super().__init__( *args, **kwargs)
         self.message = message
 
-class MissingRequiredArgument(commands.CommandError):
-    def __init__(self, *args, **kwargs):
-        super().__init__( *args, **kwargs)
-
 def standard_error_handler(error_function):
     """
     Decorator that is prepended to a cog_command_error.
@@ -127,7 +123,7 @@ def standard_error_handler(error_function):
             )
             return
 
-        elif isinstance(error, MissingRequiredArgument or commands.MissingRequiredArgument):
+        elif isinstance(error, MissingRequiredArgument):
             await ctx.send_help(ctx.command)
             await pretty_print(
                 ctx, "Missing required arguments", title="Error", color=ERROR_COLOR
