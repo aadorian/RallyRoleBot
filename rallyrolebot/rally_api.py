@@ -7,15 +7,20 @@ from constants import *
 
 # TODO: Discuss specific details with Calvin before making changes
 
+
+def returnReqError(url, result):
+    print("Request error!")
+    print(f"Url: {url}")
+    print(f"Status Code: {result.status_code}")
+    print(f"JSON result type: {type(result.json())}")
+    print(result.json())
+
+
 def get_balances(rally_id):
     url = BASE_URL + "/users/rally/" + rally_id + "/balance"
     result = requests.get(url)
     if result.status_code != 200:
-        print("Request error!")
-        print(url)
-        print(result.status_code)
-        print(type(result.json()))
-        print(result.json())
+        returnReqError(url, result)
         return None
     return result.json()
 
@@ -28,7 +33,8 @@ def get_balance_of_coin(rally_id, coin_name):
 
 
 def find_balance_of_coin(coin_name, balances):
-    if not balances: return 0.0
+    if not balances:
+        return 0.0
     for coin_balance in balances:
         if coin_balance[COIN_KIND_KEY] == coin_name:
             return float(coin_balance[COIN_BALANCE_KEY])
@@ -45,11 +51,7 @@ def get_current_price(coin_name):
     url = BASE_URL + "/creator_coins/" + coin_name + "/price"
     result = requests.get(url)
     if result.status_code != 200:
-        print("Request error!")
-        print(url)
-        print(result.status_code)
-        print(type(result.json()))
-        print(result.json())
+        returnReqError(url, result)
         return False
     return result.json()
 
