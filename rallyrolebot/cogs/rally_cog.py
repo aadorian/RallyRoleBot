@@ -63,10 +63,7 @@ class RallyCommands(commands.Cog):
         percentage_30d = price["price_change_percentage_30d"]
 
         if price is False:
-            await pretty_print(ctx, 
-                "There was an error while fetching the coin data", 
-                title="Error", 
-                color=ERROR_COLOR)
+            raise errors.RequestError("There was an error while fetching the coin data")
         else:
             await pretty_print(ctx, 
                 f"Current Price: {price['current_price']}", 
