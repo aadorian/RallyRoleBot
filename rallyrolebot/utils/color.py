@@ -3,63 +3,45 @@ from discord import Color
 from constants import *
 import math
 
-def make_color_tuple(color):
+
+def mix_colors(start_color, final_color, ratio=.5):
     """
-    Turn something like "#000000" into 0,0,0 or "#FFFFFF" into "255,255,255"
+    Given two colors, mix their values by proportions weighted by percentage.
     """
-    R = color[1:3]
-    G = color[3:5]
-    B = color[5:7]
 
-    R = int(R, 16)
-    G = int(G, 16)
-    B = int(B, 16)
+    start_color_tuple = start_color.to_rgb()
+    final_color_tuple = final_color.to_rgb()
 
-    return R, G, B
+    mixed_color = []
+
+    # Mix the R, G, and B components
+    for int1, int2 in zip(start_color_tuple, final_color_tuple):
+        mixed_color.append(int(int1 * (1 - ratio) + int2 * ratio))
+
+    return Color.from_rgb(*mixed_color)
 
 
-def interpolate_tuple(start_color, final_color, steps, index):
+def gradient(*colors, percentage=100):
     """
-    Take two RGB color sets and mix them over a specified number of steps and index
+    Given many discord.Colors and a percentage, mix them together as if on a linear gradient.
+
+    The higher the percent, the more of the final color listed appears
+    and vice versa for lower percentages.
     """
-    R = start_color[0]
-    G = start_color[1]
-    B = start_color[2]
 
-    target_R = final_color[0]
-    target_G = final_color[1]
-    target_B = final_color[2]
+    # Range between 0 - 100
+    percentage = max(0, min(percentage, 100))
 
-    Diff_R = target_R - R
-    Diff_G = target_G - G
-    Diff_B = target_B - B
+    # Determine which two colors to mix
+    size = 100 / (len(colors) - 1)
+    start_color_index = 0
 
-    iR = R + (Diff_R * index / steps)
-    iG = G + (Diff_G * index / steps)
-    iB = B + (Diff_B * index / steps)
+    # Find where on the gradient the percentage is
+    while size * (start_color_index + 1) < percentage:
+        start_color_index += 1
 
-    color = Color.from_rgb(int(iR), int(iG), int(iB))
+    mix_ratio = (percentage - size * start_color_index) / size
 
-    return color
-
-
-def interpolate_color(start_color, final_color, steps, index):
-    """
-    Wrapper for interpolate_tuple that accepts colors as html ("#CCCCC" and such)
-    """
-    start_tuple = make_color_tuple(start_color)
-    final_tuple = make_color_tuple(final_color)
-
-    return interpolate_tuple(start_tuple, final_tuple, steps, index)
-
-
-def get_gradient_by_percentage(start_color, goal_color, steps, percentage):
-    """
-    Get gradient color calculated by the percentage. Dont use negative values
-    """
-    if percentage >= 100:
-        index = steps
-    else:
-        index = math.ceil(percentage / (100 / steps))
-
-    return interpolate_color(start_color, goal_color, steps, index)
+    start_color = colors[start_color_index]
+    final_color = colors[start_color_index + 1]
+    return mix_colors(start_color, final_color, mix_ratio)
