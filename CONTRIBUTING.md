@@ -23,7 +23,7 @@ The process described here has several goals:
 
 #### Python Style Guide
 
-Be sure to include PEP [multi-line docstring](https://www.python.org/dev/peps/pep-0257/#multi-line-docstrings) comments on every function in your pull request.
+Be sure to include PEP [multi-line docstring](https://www.python.org/dev/peps/pep-0257/#multi-line-docstrings) comments on every function in your pull request. If it's a discord command, be sure to specify a help string.
 
 Be sure to use Python [black](https://pypi.org/project/black/) for all formatting. Do not execute `black *` but instead, do so on the files you commit.
 
