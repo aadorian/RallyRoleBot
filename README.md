@@ -44,6 +44,8 @@ Windows: `.\venv\Scripts\Activate.ps1`
 If you run into a Privileged Intents Error, your bot must have the following options enabled
 ![Privileged Intents Enabled](docs/PrivilegedIntents.PNG) 
 
+## Contributing
+
 If contributing to the main repository, please use the Black python package to format all code before submitting a pull request.  
 
 Please DO NOT format all documents in one pull request. Format only the specific code edited per commit. *i.e. Do NOT `black *` from the working folder or the main project directory.
