@@ -47,6 +47,7 @@ def valid_coin_symbol(coin_name):
         return False
     return result.json()["symbol"] is not None
 
+
 def get_current_price(coin_name):
     url = BASE_URL + "/creator_coins/" + coin_name + "/price"
     result = requests.get(url)
@@ -55,13 +56,16 @@ def get_current_price(coin_name):
         return False
     return result.json()
 
+
 """
     TODO: Add 24h and 30d price data
 """
+
+
 def get_price_data(coin_name):
     data = get_current_price(coin_name)
     return {
         "current_price": data["priceInUSD"],
-        "price_change_percentage_24h": "N/A",
-        "price_change_percentage_30d": "N/A",
+        "price_change_percentage_24h": -17,
+        "price_change_percentage_30d": 43,
     }
