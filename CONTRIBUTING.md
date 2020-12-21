@@ -1,7 +1,7 @@
 # Contributing to RallyRoleBot
 🎉 Thanks for your contribution to this project! 🎉
 
-The following is a set of guidelines for contributing to RallyRoleBot, which are hosted by [Rally Creator Coin Tools](https://github.com/CreatorCoinTools) on GitHub. These are mostly guidelines, not rules. Use your best judgment, and feel free to propose changes to this document in a pull request.
+The following is a set of guidelines for contributing to RallyRoleBot, which are hosted by [Rally Creator Coin Tools](https://github.com/CreatorCoinTools) on GitHub. These are mostly guidelines to keep a good quality codebase. Use your best judgment, and feel free to propose changes to this document in a pull request.
 
 ### Your First Code Contribution
 
