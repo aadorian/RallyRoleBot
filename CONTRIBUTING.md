@@ -30,17 +30,17 @@ Be sure to use Python [black](https://pypi.org/project/black/) for all formattin
 ##  Discord Library
 RallyRoleBot is built on [Discord Python library](https://discordpy.readthedocs.io/) for developing bots. In keeping with that, there are a few guidelines.
 
--For every new set of functionality or commands, please create a [Cog](https://discordpy.readthedocs.io/en/latest/ext/commands/cogs.html) that appropriately encompasses the commands. If the command is better integrated with an existing Cog, do so instead. All cogs can be found under `rallyrolebot/cogs/`
+-  For every new set of functionality or commands, please create a [Cog](https://discordpy.readthedocs.io/en/latest/ext/commands/cogs.html) that appropriately encompasses the commands. If the command is better integrated with an existing Cog, do so instead. All cogs can be found under `rallyrolebot/cogs/`
  
--All custom errors must be written and handled in `rallyrolebot/errors.py` 
+-  All custom errors must be written and handled in `rallyrolebot/errors.py` 
 
 
 
--Oftentimes, there is a need to validate certain properties about the user issuing the command. Use discord [Checks](https://discordpy.readthedocs.io/en/latest/ext/commands/commands.html#checks) when this is the case. Some examples can be found with the `owner_or_permissions` or `guild_only` checks.
+-  Oftentimes, there is a need to validate certain properties about the user issuing the command. Use discord [Checks](https://discordpy.readthedocs.io/en/latest/ext/commands/commands.html#checks) when this is the case. Some examples can be found with the `owner_or_permissions` or `guild_only` checks.
 
--Additionally, you may need to validate certain properties about the arguments passed in. Use [Converters and Advanced Converters](https://discordpy.readthedocs.io/en/latest/ext/commands/commands.html#converters) in that case. 
+-  Additionally, you may need to validate certain properties about the arguments passed in. Use [Converters and Advanced Converters](https://discordpy.readthedocs.io/en/latest/ext/commands/commands.html#converters) in that case. 
 
--Finally, be sure to use `utils.pretty_print` for outputs as it allows us to keep a consistent look and feel to the bot.
+-  Finally, be sure to use `utils.pretty_print` for outputs as it allows us to keep a consistent look and feel to the bot.
 
 # Thanks! Happy Coding!
 See more about how discord commands work [here](https://discordpy.readthedocs.io/en/latest/ext/commands/commands.html)
