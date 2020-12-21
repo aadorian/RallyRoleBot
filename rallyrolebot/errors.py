@@ -15,6 +15,16 @@ class WalletNotVerified(commands.CommandError):
         super().__init__( *args, **kwargs)
         self.message = message
 
+class InvalidCoin(commands.CommandError):
+    def __init__(self, message, *args, **kwargs):
+        super().__init__( *args, **kwargs)
+        self.message = message
+
+class RequestError(commands.CommandError):
+    def __init__(self, message, *args, **kwargs):
+        super().__init__( *args, **kwargs)
+        self.message = message
+
 def standard_error_handler(error_function):
     """
     Decorator that is prepended to a cog_command_error.
@@ -118,10 +128,20 @@ def standard_error_handler(error_function):
             )
             return
 
-        elif isinstance(error, commands.MissingRequiredArgument):
+        elif isinstance(error, MissingRequiredArgument):
             await ctx.send_help(ctx.command)
             await pretty_print(
                 ctx, "Missing required arguments", title="Error", color=ERROR_COLOR
+            )
+            return
+
+        elif isinstance(error, BadUnionArgument):
+            await ctx.send_help(ctx.command)
+            await pretty_print(
+                ctx, 
+                "Invalid argument",
+                title="Error",
+                color=ERROR_COLOR,
             )
             return
 
@@ -132,6 +152,19 @@ def standard_error_handler(error_function):
                     color=ERROR_COLOR)
             return
 
+        elif isinstance(error, InvalidCoin):
+            await pretty_print(ctx,
+                    error.message + extra ,
+                    title="Error",
+                    color=ERROR_COLOR)
+            return
+
+        elif isinstance(error, RequestError):
+            await pretty_print(ctx,
+                    error.message + extra ,
+                    title="Error",
+                    color=ERROR_COLOR)
+            return
         await error_function(cls, ctx, error)
 
     return wrapper

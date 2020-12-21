@@ -37,6 +37,7 @@ COIN_KIND_KEY = "coinKind"
 COIN_BALANCE_KEY = "coinBalance"
 
 BASE_URL = "https://api.rally.io/v1"
+COINGECKO_API_URL = "https://api.coingecko.com/api/v3"
 
 
 """
@@ -52,7 +53,11 @@ ERROR_COLOR = Color(0xFF0000)
 SUCCESS_COLOR = Color(0x0000FF)
 WARNING_COLOR = Color(0xFFFF00)
 GREEN_COLOR = Color(0x00FF00)
+WHITE_COLOR = Color(0xFFFFFE)
+DARK_RED_COLOR = Color(0x800000)
+DARK_GREEN_COLOR = Color(0x008000)
 
+PRICE_GRADIENT_DEPTH = 5
 
 DEFAULT_DONATE_MESSAGE = "You can donate to by going to - Your donation helps grow and support the community and creator - Plus, there are 10 tiers of Donation badges to earn to show off your support!"
 DEFAULT_PURCHASE_MESSAGE = "You can purchase at by using a Credit/Debit card or a number of different Crypto Currencies! Buying earns rewards, supports the community, and you can even get VIP Status! (hint: there’s a secret VIP room for users who hold over X # of ;)"
