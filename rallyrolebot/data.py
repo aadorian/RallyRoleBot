@@ -280,7 +280,7 @@ def add_user_token(db, token, discord_id):
             DISCORD_ID_KEY: discord_id,
             TIME_CREATED_KEY: datetime.datetime.now(),
         },
-        [TOKEN_KEY, DISCORD_ID_KEY],
+        [DISCORD_ID_KEY],
     )
 
 
