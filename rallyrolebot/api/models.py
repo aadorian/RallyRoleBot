@@ -20,7 +20,7 @@ class RoleMapping(BaseModel):
 
 class CoinMapping(BaseModel):
     guildId: Optional[str] = None
-    coinKind: str
+    coinKind: Optional[str] = None
 
 
 class PrefixMapping(BaseModel):
