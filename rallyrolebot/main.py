@@ -29,4 +29,8 @@ if __name__ == "__main__":
     bot.add_cog(rally_cog.RallyCommands(bot))
     bot.add_cog(defaults_cog.DefaultsCommands(bot))
     bot.add_cog(update_cog.UpdateTask(bot))
+
+    for command in bot.commands:
+        data.add_command(command.name, command.help)
+
     bot.run(config.CONFIG.secret_token)

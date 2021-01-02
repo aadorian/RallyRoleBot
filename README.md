@@ -44,6 +44,20 @@ Windows: `.\venv\Scripts\Activate.ps1`
 If you run into a Privileged Intents Error, your bot must have the following options enabled
 ![Privileged Intents Enabled](docs/PrivilegedIntents.PNG) 
 
+## Bot API
+
+The bot also comes with a REST API based on [fastapi](https://fastapi.tiangolo.com/) to allow communication outside of discord.
+To start the API you can run `python rallyrolebot/api.py`.
+The API should now be available at `http://127.0.0.1:8000` and the API documentation will be available at `/docs` or `/redoc`.
+
+To configure the host and port for the API, include the following arguments:
+
+```sh
+python rallyrolebot/api.py --host <custom_host> --port <custom_port>
+```
+
+To run the API asynchronously with the bot check [this](https://github.com/Ju99ernaut/RallyRoleBot/blob/api/rallyrolebot/main.py) example.
+
 ## Contributing
 
 If contributing to the main repository, please use the Black python package to format all code before submitting a pull request.  

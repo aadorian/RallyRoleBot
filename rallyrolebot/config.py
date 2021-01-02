@@ -19,6 +19,10 @@ arg_parser.add(
     help="An SQLAlchemy connection string",
 )
 
+arg_parser.add("--host", default="127.0.0.1", help="Bind socket to this host")
+
+arg_parser.add("--port", default="8000", help="Bind socket to this port")
+
 
 def parse_args():
     global CONFIG
