@@ -1,3 +1,5 @@
+import os
+
 from discord.ext import commands
 import functools
 
@@ -54,7 +56,14 @@ def connect_db(function):
     @functools.wraps(function)
     def wrapper(*args, **kwargs):
         result = None
-        with dataset.connect(config.CONFIG.database_connection) as db:
+
+        # For some reason heroku sets config.CONFIG to None after some time
+        try:
+            url = config.CONFIG.database_connection
+        except:
+            url = os.getenv("DATABASE_URL")
+
+        with dataset.connect(url) as db:
             result = function(db, *args, **kwargs)
         return result
 
