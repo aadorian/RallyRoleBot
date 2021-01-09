@@ -2,6 +2,8 @@
 
 A bot for managing roles based on Rally.io holdings. It is ready to be deployed to `heroku` but it can also be deployed elsewhere. For `heroku` it is important that you set the `SECRET_TOKEN` enviromant variable!
 
+* `SECRET_TOKEN` - bot secret token obtained from discord.
+
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
 ## Adding the bot to your server
