@@ -290,7 +290,7 @@ def get_user_id(db, token):
     row = table.find_one(token=token)
     if row is not None:
         created = row[TIME_CREATED_KEY]
-        if (created + datetime.timedelta(hours=3)) >= datetime.datetime.now():
+        if (created + datetime.timedelta(hours=1)) >= datetime.datetime.now():
             return row[DISCORD_ID_KEY]
         else:
             table.delete(token=token)

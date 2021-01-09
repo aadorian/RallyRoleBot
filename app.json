@@ -1,0 +1,20 @@
+{
+    "name": "RallyBot",
+    "description": "Rally/Discord role management bot intergration, with REST API",
+    "keywords": [
+        "discord",
+        "rally",
+        "bot",
+        "api"
+    ],
+    "repository": "https://github.com/CreatorCoinTools/RallyRoleBot",
+    "addons": [
+        "heroku-postgresql:hobby-dev"
+    ],
+    "env": {
+        "SECRET_TOKEN": {
+            "description": "Bot secret token from discord",
+            "value": "secret_token"
+        }
+    }
+}
