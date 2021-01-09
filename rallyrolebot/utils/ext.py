@@ -57,7 +57,7 @@ def connect_db(function):
     def wrapper(*args, **kwargs):
         result = None
 
-        # For some reason heroku sets config.CONFIG to None after some time
+        # Seems the web process running the api also runs other processes that aren't aware of config.CONFIG
         try:
             url = config.CONFIG.database_connection
         except:
