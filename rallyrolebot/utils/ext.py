@@ -63,8 +63,11 @@ def connect_db(function):
         except:
             url = os.getenv("DATABASE_URL")
 
-        with dataset.connect(url) as db:
-            result = function(db, *args, **kwargs)
+        db = dataset.connect(url)
+        result = function(db, *args, **kwargs)
+        db.commit()
+        db.close()
+            
         return result
 
     return wrapper
