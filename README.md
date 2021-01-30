@@ -8,7 +8,7 @@ A bot for managing roles based on Rally.io holdings. It is ready to be deployed 
 
 ## Adding the bot to your server
 
-Click this link to add the bot to your server [https://rallybot.app](https://rallybot.app)
+Click this link to add the bot to your server [https://discordbotgui.netlify.app/](https://discordbotgui.netlify.app/)
 
 Once the bot has been added to your server you need to ensure that it can access and change your roles and channels.
 
